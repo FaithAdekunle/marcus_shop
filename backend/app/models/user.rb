@@ -40,4 +40,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   enum :role, { customer: 0, admin: 1 }.freeze, default: :customer
+
+  validates_uniqueness_of :email
+  validates :name, :role, presence: true
 end
