@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_16_210711) do
 
   create_table "options", force: :cascade do |t|
     t.string "name", null: false
+    t.string "description", default: "", null: false
     t.integer "base_price", default: 0, null: false
     t.integer "part_id", null: false
     t.datetime "created_at", null: false
@@ -42,6 +43,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_16_210711) do
 
   create_table "parts", force: :cascade do |t|
     t.string "name", null: false
+    t.string "description", default: "", null: false
     t.integer "base_price", default: 0, null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
