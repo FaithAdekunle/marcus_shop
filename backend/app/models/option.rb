@@ -15,4 +15,13 @@
 #
 class Option < ApplicationRecord
   belongs_to :part
+
+  has_many :exclusions, dependent: :destroy_all
+  has_many :excluded_options, as: :excluded, class_name: "Exclusion", dependent: :destroy_all
+
+  has_many :addons, dependent: :destroy_all
+  has_many :dependant_options, as: :dependant, class_name: "Addon", dependent: :destroy_all
+
+  validates :name, presence: true
+  validates_uniqueness_of :name, scope: :part_id
 end

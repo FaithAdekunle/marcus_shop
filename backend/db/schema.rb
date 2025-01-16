@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_16_191349) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_16_210711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addons", force: :cascade do |t|
+    t.integer "option_id", null: false
+    t.integer "dependant_id", null: false
+    t.integer "price", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_id", "dependant_id"], name: "index_addons_on_option_id_and_dependant_id", unique: true
+  end
 
   create_table "exclusions", force: :cascade do |t|
     t.integer "option_id", null: false
