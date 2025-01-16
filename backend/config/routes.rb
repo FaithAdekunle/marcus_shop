@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :parts, only: %i[create update destroy]
+        resources :options, only: %i[create update destroy]
         resources :products, only: %i[create update destroy]
       end
     end
