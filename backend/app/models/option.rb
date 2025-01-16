@@ -17,11 +17,11 @@
 class Option < ApplicationRecord
   belongs_to :part
 
-  has_many :exclusions, dependent: :destroy_all
-  has_many :excluded_options, as: :excluded, class_name: "Exclusion", dependent: :destroy_all
+  has_many :exclusions, dependent: :delete_all
+  has_many :excluded_options, as: :excluded, class_name: "Exclusion", dependent: :delete_all
 
-  has_many :addons, dependent: :destroy_all
-  has_many :dependant_options, as: :dependant, class_name: "Addon", dependent: :destroy_all
+  has_many :addons, dependent: :delete_all
+  has_many :dependant_options, as: :dependant, class_name: "Addon", dependent: :delete_all
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :part_id
