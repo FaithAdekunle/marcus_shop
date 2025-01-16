@@ -8,12 +8,16 @@ Rails.application.routes.draw do
 
   namespace :api, path: "", defaults: { format: :json } do
     namespace :v1 do
+      resources :parts, only: %i[index show]
+      resources :options, only: %i[index show]
       resources :products, only: %i[index show]
+      resources :exclusions, only: %i[index show]
 
       namespace :admin do
         resources :parts, only: %i[create update destroy]
         resources :options, only: %i[create update destroy]
         resources :products, only: %i[create update destroy]
+        resources :exclusions, only: %i[create update destroy]
       end
     end
   end
