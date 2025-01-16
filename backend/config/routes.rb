@@ -8,9 +8,10 @@ Rails.application.routes.draw do
 
   namespace :api, path: "", defaults: { format: :json } do
     namespace :v1 do
-      resources :products, only: %i[index]
+      resources :products, only: %i[index show]
 
       namespace :admin do
+        resources :parts, only: %i[create update destroy]
         resources :products, only: %i[create update destroy]
       end
     end

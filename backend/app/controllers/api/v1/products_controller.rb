@@ -3,6 +3,9 @@ module Api
     class ProductsController < ApplicationController
       def index
       end
+
+      def show
+      end
     end
   end
 end
