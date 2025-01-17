@@ -2,7 +2,7 @@ module AuthConcerns
   extend ActiveSupport::Concern
 
   def render_user
-    options = ::V1::UserOptions.new.current_user
-    render json: ::V1::UserSerializer.new(@resource, options).serializable_hash
+    formatter = ::V1::UserFormatters.new.current_user
+    render json: ::V1::UserSerializer.new(@resource, formatter).serializable_hash
   end
 end

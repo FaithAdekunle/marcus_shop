@@ -4,17 +4,17 @@ module Api
       class ProductsController < BaseController
         def create
           product = Product.create!(product_params)
-          options = ::V1::Admin::ProductOptions.new.create
+          formatter = ::V1::ProductFormatters.new.create
 
-          render json: ::V1::ProductSerializer.new(product, options).serializable_hash
+          render json: ::V1::ProductSerializer.new(product, formatter).serializable_hash
         end
 
         def update
           product = Product.find(params[:product_id])
           product.update!(product_params)
-          options = ::V1::Admin::ProductOptions.new.update
+          formatter = ::V1::ProductFormatters.new.update
 
-          render json: ::V1::ProductSerializer.new(product, options).serializable_hash
+          render json: ::V1::ProductSerializer.new(product, formatter).serializable_hash
         end
 
         def destroy

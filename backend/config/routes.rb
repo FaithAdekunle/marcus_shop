@@ -12,20 +12,7 @@ Rails.application.routes.draw do
         registrations: "overrides/registrations"
       }
 
-      resources :products, param: :product_id, only: %i[index show] do
-        member do
-          resources :parts, param: :part_id, only: %i[index show] do
-            member do
-              resources :options, param: :option_id, only: %i[index show] do
-                member do
-                  resources(:price_adjustments, only: []) { collection { get :adjusters } }
-                  resources(:mutual_exclusions, only: []) { collection { get :excludees } }
-                end
-              end
-            end
-          end
-        end
-      end
+      resources :products, only: %i[index show]
 
       namespace :admin do
         resources :products, param: :product_id, only: %i[create update destroy] do

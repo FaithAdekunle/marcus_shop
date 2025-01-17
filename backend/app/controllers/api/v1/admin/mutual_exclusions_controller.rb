@@ -4,9 +4,9 @@ module Api
       class MutualExclusionsController < BaseController
         def create
           mutual_exclusion = MutualExclusion.create!(mutual_exclusion_params)
-          options = ::V1::Admin::MutualExclusionOptions.new.create
+          formatter = ::V1::MutualExclusionFormatters.new.create
 
-          render json: ::V1::MutualExclusionSerializer.new(mutual_exclusion, options).serializable_hash
+          render json: ::V1::MutualExclusionSerializer.new(mutual_exclusion, formatter).serializable_hash
         end
 
         def destroy

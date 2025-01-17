@@ -4,17 +4,17 @@ module Api
       class PartsController < BaseController
         def create
           part = Part.create!(part_params)
-          options = ::V1::Admin::PartOptions.new.create
+          formatter = ::V1::PartFormatters.new.create
 
-          render json: ::V1::PartSerializer.new(part, options).serializable_hash
+          render json: ::V1::PartSerializer.new(part, formatter).serializable_hash
         end
 
         def update
           part = Part.find(params[:part_id])
           part.update!(part_params)
-          options = ::V1::Admin::PartOptions.new.update
+          formatter = ::V1::PartFormatters.new.update
 
-          render json: ::V1::PartSerializer.new(part, options).serializable_hash
+          render json: ::V1::PartSerializer.new(part, formatter).serializable_hash
         end
 
         def destroy
