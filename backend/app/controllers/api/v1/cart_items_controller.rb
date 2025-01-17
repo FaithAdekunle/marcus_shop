@@ -3,7 +3,7 @@ module Api
   module V1
     class CartItemsController < BaseController
       def index
-        cart_items = CartItem.includes(:cart_item_options, product: { parts: { options: [ :excluders, :adjustees ] } }).where(user_id: current_user.id).all
+        cart_items = CartItem.includes(:cart_item_options, product: { parts: { options: [ :excluders, :adjustees ] } }).where(user_id: current_api_v1_user.id).all
         formatter = ::V1::CartItemFormatters.new.index
 
         render json: ::V1::CartItemSerializer.new(cart_items, formatter).serializable_hash
@@ -45,7 +45,7 @@ module Api
       private
 
       def cart_item_params
-        params.permit(:quantity, :product_id).tap { |p| p[:user_id] = current_user.id }
+        params.permit(:quantity, :product_id).tap { |p| p[:user_id] = current_api_v1_user.id }
       end
 
       def option_ids
