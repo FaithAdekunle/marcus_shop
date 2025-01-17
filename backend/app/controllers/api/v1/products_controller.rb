@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ProductsController < ApplicationController
+    class ProductsController < BaseController
       def index
       end
 

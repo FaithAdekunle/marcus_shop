@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ExclusionsController < ApplicationController
+    class ExclusionsController < BaseController
       def index
       end
 

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class OptionsController < ApplicationController
+    class OptionsController < BaseController
       def index
       end
 

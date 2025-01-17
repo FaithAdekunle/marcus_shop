@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for "User", at: "auth"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -8,6 +7,11 @@ Rails.application.routes.draw do
 
   namespace :api, path: "", defaults: { format: :json } do
     namespace :v1 do
+      mount_devise_token_auth_for "User", at: "auth", controllers: {
+        sessions: "overrides/sessions",
+        registrations: "overrides/registrations"
+      }
+
       resources :parts, only: %i[index show]
       resources :addons, only: %i[index show]
       resources :options, only: %i[index show]
