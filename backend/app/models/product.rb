@@ -18,5 +18,5 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates_uniqueness_of :name
 
-  has_many :parts
+  has_many :parts, dependent: :delete_all
 end

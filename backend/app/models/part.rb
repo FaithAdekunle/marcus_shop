@@ -3,7 +3,6 @@
 # Table name: parts
 #
 #  id          :bigint           not null, primary key
-#  base_price  :integer          default(0), not null
 #  description :string           default(""), not null
 #  name        :string           not null
 #  created_at  :datetime         not null
@@ -17,7 +16,7 @@
 class Part < ApplicationRecord
   belongs_to :product
 
-  has_many :options
+  has_many :options, dependent: :delete_all
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :product_id

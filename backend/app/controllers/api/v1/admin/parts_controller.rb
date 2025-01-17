@@ -5,6 +5,7 @@ module Api
         def create
           part = Part.create!(part_params)
           options = ::V1::Admin::PartOptions.new.create
+
           render json: ::V1::PartSerializer.new(part, options).serializable_hash
         end
 
@@ -12,19 +13,19 @@ module Api
           part = Part.find(params[:part_id])
           part.update!(part_params)
           options = ::V1::Admin::PartOptions.new.update
+
           render json: ::V1::PartSerializer.new(part, options).serializable_hash
         end
 
         def destroy
           part = Part.find(params[:part_id])
-          option_ids = Option.where(part_id: part.id)
-          addon_ids = Addon.where(option_id: option_ids).or(Addon.where(dependant_id: option_ids)).ids
-          exclusion_ids = Exclusion.where(option_id: option_ids).or(Exclusion.where(excluded_id: option_ids)).ids
+          option_ids = Option.where(part_id: part.id).ids
+          price_adjustment_ids = PriceAdjustment.where("adjuster_id IN (?) OR adjustee_id IN (?)", option_ids, option_ids).ids
+          mutual_exclusion_ids = MutualExclusion.where("excluder_id IN (?) OR excludee_id IN (?)", option_ids, option_ids).ids
 
           ActiveRecord::Base.transaction do
-            Addon.where(id: addon_ids).delete_all if addon_ids.present?
-            Exclusion.where(id: exclusion_ids).delete_all if exclusion_ids.present?
-            Option.where(id: option_ids).delete_all if option_ids.present?
+            PriceAdjustment.where(id: price_adjustment_ids).delete_all if price_adjustment_ids.present?
+            MutualExclusion.where(id: mutual_exclusion_ids).delete_all if mutual_exclusion_ids.present?
             part.destroy
           end
 
@@ -34,7 +35,7 @@ module Api
         private
 
         def part_params
-          params.permit(:name, :description, :base_price, :product_id)
+          params.permit(:name, :description, :product_id)
         end
       end
     end

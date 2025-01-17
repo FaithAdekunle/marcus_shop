@@ -18,10 +18,11 @@
 class Option < ApplicationRecord
   belongs_to :part
 
-  has_many :addons, dependent: :delete_all
+  has_many :adjusters, foreign_key: "adjuster_id", class_name: "PriceAdjustment", dependent: :delete_all
+  has_many :adjustees, foreign_key: "adjustee_id", class_name: "PriceAdjustment", dependent: :delete_all
 
-  has_many :exclusions, dependent: :delete_all
-  has_many :excluded_options, as: :excluded, class_name: "Exclusion", dependent: :delete_all
+  has_many :excluders, foreign_key: "excluder_id", class_name: "MutualExclusion", dependent: :delete_all
+  has_many :excludees, foreign_key: "excludee_id", class_name: "MutualExclusion", dependent: :delete_all
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :part_id

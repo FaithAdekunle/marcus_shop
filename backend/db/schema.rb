@@ -14,21 +14,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_17_050824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addons", force: :cascade do |t|
-    t.integer "option_id", null: false
-    t.integer "dependant_id", null: false
-    t.integer "price", default: 0, null: false
+  create_table "mutual_exclusions", force: :cascade do |t|
+    t.integer "excluder_id", null: false
+    t.integer "excludee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["option_id", "dependant_id"], name: "index_addons_on_option_id_and_dependant_id", unique: true
-  end
-
-  create_table "exclusions", force: :cascade do |t|
-    t.integer "option_id", null: false
-    t.integer "excluded_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["option_id", "excluded_id"], name: "index_exclusions_on_option_id_and_excluded_id", unique: true
+    t.index ["excluder_id", "excludee_id"], name: "index_mutual_exclusions_on_excluder_id_and_excludee_id", unique: true
   end
 
   create_table "options", force: :cascade do |t|
@@ -45,11 +36,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_17_050824) do
   create_table "parts", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", default: "", null: false
-    t.integer "base_price", default: 0, null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "product_id"], name: "index_parts_on_name_and_product_id", unique: true
+  end
+
+  create_table "price_adjustments", force: :cascade do |t|
+    t.integer "adjuster_id", null: false
+    t.integer "adjustee_id", null: false
+    t.integer "price", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["adjustee_id", "adjuster_id"], name: "index_price_adjustments_on_adjustee_id_and_adjuster_id", unique: true
   end
 
   create_table "products", force: :cascade do |t|

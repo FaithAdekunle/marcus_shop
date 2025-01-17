@@ -3,7 +3,6 @@ class CreateParts < ActiveRecord::Migration[7.2]
     create_table :parts do |t|
       t.string :name, null: false
       t.string :description, null: false, default: ""
-      t.integer :base_price, null: false, default: 0
       t.integer :product_id, null: false
 
       t.timestamps
