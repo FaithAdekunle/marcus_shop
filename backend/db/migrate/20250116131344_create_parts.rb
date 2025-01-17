@@ -8,6 +8,6 @@ class CreateParts < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :parts, [ :name, :product_id ], unique: true
+    add_index :parts, [ :product_id, :name ], unique: true
   end
 end

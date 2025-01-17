@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_options_on_name_and_part_id  (name,part_id) UNIQUE
+#  index_options_on_part_id_and_name  (part_id,name) UNIQUE
 #
 class Option < ApplicationRecord
   belongs_to :part

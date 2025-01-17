@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_17_050824) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_17_181543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cart_item_options", force: :cascade do |t|
+    t.integer "cart_item_id", null: false
+    t.integer "option_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_item_id", "option_id"], name: "index_cart_item_options_on_cart_item_id_and_option_id", unique: true
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "mutual_exclusions", force: :cascade do |t|
     t.integer "excluder_id", null: false
@@ -30,7 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_17_050824) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "available", default: true
-    t.index ["name", "part_id"], name: "index_options_on_name_and_part_id", unique: true
+    t.index ["part_id", "name"], name: "index_options_on_part_id_and_name", unique: true
   end
 
   create_table "parts", force: :cascade do |t|
@@ -39,7 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_17_050824) do
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "product_id"], name: "index_parts_on_name_and_product_id", unique: true
+    t.index ["product_id", "name"], name: "index_parts_on_product_id_and_name", unique: true
   end
 
   create_table "price_adjustments", force: :cascade do |t|

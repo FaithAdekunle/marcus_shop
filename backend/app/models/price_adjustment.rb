@@ -17,5 +17,5 @@ class PriceAdjustment < ApplicationRecord
   belongs_to :adjuster, class_name: "Option"
   belongs_to :adjustee, class_name: "Option"
 
-  validates_uniqueness_of :adjustee_id, scope: :adjuster_id
+  validates_uniqueness_of :adjuster_id, scope: :adjustee_id
 end

@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_parts_on_name_and_product_id  (name,product_id) UNIQUE
+#  index_parts_on_product_id_and_name  (product_id,name) UNIQUE
 #
 class Part < ApplicationRecord
   belongs_to :product

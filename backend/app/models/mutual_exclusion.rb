@@ -16,5 +16,5 @@ class MutualExclusion < ApplicationRecord
   belongs_to :excluder, class_name: "Option"
   belongs_to :excludee, class_name: "Option"
 
-  validates_uniqueness_of :excluder_id, scope: :excludee_id
+  validates_uniqueness_of :excludee_id, scope: :excluder_id
 end

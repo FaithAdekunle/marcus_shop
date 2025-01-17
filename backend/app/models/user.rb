@@ -41,4 +41,6 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :email
   validates :name, :role, presence: true
+
+  has_many :cart_items
 end
