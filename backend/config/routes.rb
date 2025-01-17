@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
       resources :products, only: %i[index show]
 
+      resources :cart_items, only: %i[index create update destroy]
+
       namespace :admin do
         resources :products, param: :product_id, only: %i[create update destroy] do
           member do

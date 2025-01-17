@@ -13,5 +13,7 @@ class CartItem < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
+  has_many :cart_item_options, dependent: :delete_all
+
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 end

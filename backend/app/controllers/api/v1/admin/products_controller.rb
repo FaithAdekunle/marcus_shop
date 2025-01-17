@@ -21,12 +21,16 @@ module Api
           product = Product.find(params[:product_id])
           part_ids = Part.where(product_id: product.id).ids
           option_ids = Option.where(part_id: part_ids).ids
+          cart_item_ids = CartItem.where(product_id: product.id).ids
+          cart_item_option_ids = CartItemOption.where(cart_item_id: cart_item_ids).ids
           price_adjustment_ids = PriceAdjustment.where("adjuster_id IN (?) OR adjustee_id IN (?)", option_ids, option_ids).ids
           mutual_exclusion_ids = MutualExclusion.where("excluder_id IN (?) OR excludee_id IN (?)", option_ids, option_ids).ids
 
           ActiveRecord::Base.transaction do
             PriceAdjustment.where(id: price_adjustment_ids).delete_all if price_adjustment_ids.present?
             MutualExclusion.where(id: mutual_exclusion_ids).delete_all if mutual_exclusion_ids.present?
+            CartItemOption.where(id: cart_item_option_ids).delete_all if cart_item_option_ids.present?
+            CartItem.where(id: cart_item_ids).delete_all if cart_item_ids.present?
             Option.where(id: option_ids).delete_all if option_ids.present?
             product.destroy
           end

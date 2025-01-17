@@ -18,6 +18,8 @@
 class Option < ApplicationRecord
   belongs_to :part
 
+  has_many :cart_item_options, dependent: :delete_all
+
   has_many :adjusters, foreign_key: "adjuster_id", class_name: "PriceAdjustment", dependent: :delete_all
   has_many :adjustees, foreign_key: "adjustee_id", class_name: "PriceAdjustment", dependent: :delete_all
 
