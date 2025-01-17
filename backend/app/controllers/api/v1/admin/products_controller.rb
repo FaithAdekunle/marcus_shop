@@ -9,14 +9,14 @@ module Api
         end
 
         def update
-          product = Product.find(params[:id])
+          product = Product.find(params[:product_id])
           product.update!(product_params)
           options = ::V1::Admin::ProductOptions.new.update
           render json: ::V1::ProductSerializer.new(product, options).serializable_hash
         end
 
         def destroy
-          product = Product.find(params[:id])
+          product = Product.find(params[:product_id])
           part_ids = Part.where(product_id: product.id).ids
           option_ids = Option.where(part_id: part_ids).ids
           addon_ids = Addon.where(option_id: option_ids).or(Addon.where(dependant_id: option_ids)).ids

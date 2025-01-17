@@ -12,18 +12,36 @@ Rails.application.routes.draw do
         registrations: "overrides/registrations"
       }
 
-      resources :parts, only: %i[index show]
-      resources :addons, only: %i[index show]
-      resources :options, only: %i[index show]
-      resources :products, only: %i[index show]
-      resources :exclusions, only: %i[index show]
+      resources :products, only: %i[index show] do
+        member do
+          resources :parts, only: %i[index show] do
+            member do
+              resources :options, only: %i[index show] do
+                member do
+                  resources :addons, only: %i[index show]
+                  resources :exclusions, only: %i[index show]
+                end
+              end
+            end
+          end
+        end
+      end
 
       namespace :admin do
-        resources :parts, only: %i[create update destroy]
-        resources :addons, only: %i[create update destroy]
-        resources :options, only: %i[create update destroy]
-        resources :products, only: %i[create update destroy]
-        resources :exclusions, only: %i[create update destroy]
+        resources :products, param: :product_id, only: %i[create update destroy] do
+          member do
+            resources :parts, param: :part_id, only: %i[create update destroy] do
+              member do
+                resources :options, only: %i[create update destroy] do
+                  member do
+                    resources :addons, only: %i[create update destroy]
+                    resources :exclusions, only: %i[create update destroy]
+                  end
+                end
+              end
+            end
+          end
+        end
       end
     end
   end
