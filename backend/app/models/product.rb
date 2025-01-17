@@ -3,6 +3,7 @@
 # Table name: products
 #
 #  id          :bigint           not null, primary key
+#  available   :boolean          default(TRUE)
 #  base_price  :integer          default(0), not null
 #  description :string           default(""), not null
 #  name        :string           not null
