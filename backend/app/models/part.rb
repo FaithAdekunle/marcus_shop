@@ -17,7 +17,7 @@
 class Part < ApplicationRecord
   belongs_to :product
 
-  has_many :options, dependent: :destroy_all
+  has_many :options
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :product_id
