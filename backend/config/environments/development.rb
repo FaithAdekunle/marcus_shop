@@ -38,7 +38,7 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: "localhost", port: 4001 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 7002 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
