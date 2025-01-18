@@ -5,7 +5,7 @@ const useAuthPage = () => {
   const navigate = useNavigate();
   const { signingIn, currentUser } = useSelector(({ user }) => user);
 
-  if (currentUser) navigate("/products");
+  if (currentUser) navigate("/market");
 
   return { signingIn };
 };

@@ -12,19 +12,21 @@ const App = () => {
     <Routes>
       <Route path="sign_up" element={<SignUp />} />
       <Route path="sign_in" element={<SignIn />} />
+
       <Route element={<Dashboard />}>
-        <Route path="products" element={<>Products index page here...</>} />
+        <Route path="market" element={<>Products index page here...</>} />
         <Route
-          path="products/:product_id"
+          path="market/:product_id"
           element={<>Product show page here...</>}
         />
         <Route
-          path="products/:product_id/edit"
+          path="market/:product_id/edit"
           element={<>Product edit page here...</>}
         />
         <Route path="cart" element={<>CartItems index page here...</>} />
-        <Route path="*" element={<SignUp />} />
       </Route>
+
+      <Route path="*" element={<SignUp />} />
     </Routes>
   );
 };
