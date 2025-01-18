@@ -1,12 +1,12 @@
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import AddModal from "./addModal";
 
-const Product = () => {
+const Products = () => {
   const { currentUser } = useCurrentUser();
 
   return <>{currentUser.attributes.role === "admin" ? <AddModal /> : null}</>;
 };
 
-Product.propTypes = {};
+Products.propTypes = {};
 
-export default Product;
+export default Products;

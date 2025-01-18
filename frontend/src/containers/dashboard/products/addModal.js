@@ -13,7 +13,7 @@ const AddModal = () => {
 
   const afterSubmit = useCallback(
     response => {
-      navigate(`/market/${Object.keys(response.product)[0]}/edit`);
+      navigate(`/products/${Object.keys(response.product)[0]}/edit`);
     },
     [navigate]
   );
