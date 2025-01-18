@@ -23,7 +23,7 @@ const App = () => {
           element={<>Product edit page here...</>}
         />
         <Route path="cart" element={<>CartItems index page here...</>} />
-        <Route path="*" element={<>No route</>} />
+        <Route path="*" element={<SignUp />} />
       </Route>
     </Routes>
   );
