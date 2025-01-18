@@ -1,5 +1,5 @@
+import { useCallback } from "react";
 import { Outlet } from "react-router-dom";
-import React, { useCallback } from "react";
 
 import Spinner from "../../components/spinner";
 import useWithUser from "../../hooks/useWithUser";
@@ -23,12 +23,12 @@ const Dashboard = () => {
   return (
     <section>
       {currentUser ? (
-        <>
+        <div className="font-mono">
           <Navbar />
           <div className="p-4">
             <Outlet />
           </div>
-        </>
+        </div>
       ) : (
         renderSigningIn()
       )}
