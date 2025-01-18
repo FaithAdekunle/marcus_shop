@@ -1,8 +1,11 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "./containers/dashboard";
+import useGetCurrentUser from "./hooks/useGetCurrentUser";
 
 const App = () => {
+  useGetCurrentUser();
+
   return (
     <Routes>
       <Route path="sign_up" element={<>Sign Up</>} />

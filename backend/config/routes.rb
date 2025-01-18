@@ -14,6 +14,12 @@ Rails.application.routes.draw do
 
       resources :products, only: %i[index show]
 
+      resources :users, only: %i[] do
+        collection do
+          get :current_user
+        end
+      end
+
       resources :cart_items, only: %i[index create update destroy]
 
       namespace :admin do
