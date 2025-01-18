@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import getCurrentUser from "../actions/getCurrentUser";
+import getCurrentUser from "../actions/users/getCurrentUser";
 
 const useGetCurrentUser = () => {
   const dispatch = useDispatch();

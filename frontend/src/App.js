@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
+import SignUp from "./containers/auth/signUp";
+import SignIn from "./containers/auth/signIn";
 import Dashboard from "./containers/dashboard";
 import useGetCurrentUser from "./hooks/useGetCurrentUser";
 
@@ -8,8 +10,8 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="sign_up" element={<>Sign Up</>} />
-      <Route path="sign_in" element={<>Sign In</>} />
+      <Route path="sign_up" element={<SignUp />} />
+      <Route path="sign_in" element={<SignIn />} />
       <Route element={<Dashboard />}>
         <Route path="products" element={<>Products index page here...</>} />
         <Route

@@ -18,6 +18,6 @@ export const userReducer = createSlice({
   }
 });
 
-export const { updateSigningIn, updateCurrentuser } = userReducer.actions;
+export const { updateSigningIn, updateCurrentUser } = userReducer.actions;
 
 export default userReducer.reducer;

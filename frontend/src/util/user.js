@@ -22,3 +22,15 @@ export const setDocumentAuthCookies = headers => {
     document.cookie = serialize("client", headers.client, COOKIE_PROPS);
   }
 };
+
+const DELETE_COOKIE_PROPS = {
+  path: "/",
+  expires: new Date(0)
+};
+
+export const removeDocumentAuthCookies = () => {
+  document.cookie = serialize("uid", "", DELETE_COOKIE_PROPS);
+  document.cookie = serialize("expiry", "", DELETE_COOKIE_PROPS);
+  document.cookie = serialize("client", "", DELETE_COOKIE_PROPS);
+  document.cookie = serialize("access-token", "", DELETE_COOKIE_PROPS);
+};

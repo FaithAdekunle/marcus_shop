@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const useWithUser = () => {
+const useAuthPage = () => {
   const navigate = useNavigate();
   const { signingIn, currentUser } = useSelector(({ user }) => user);
 
-  if (!currentUser && !signingIn) {
-    navigate("sign_up");
-    return null;
-  }
+  if (currentUser) navigate("/products");
+
+  return { signingIn };
 };
 
-export default useWithUser;
+export default useAuthPage;
