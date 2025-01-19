@@ -20,10 +20,10 @@ const EditProduct = () => {
 
   useEffect(() => {
     dispatch(showProduct(productId)).then(response => {
-      setParts(Object.values(response.part || {}));
-      setOptions(Object.values(response.option || {}));
-      setMutualExclusions(Object.values(response.mutual_exclusion || {}));
-      setPriceAdjustments(Object.values(response.price_adjustment || {}));
+      setParts(response.part);
+      setOptions(response.option);
+      setMutualExclusions(response.mutual_exclusion);
+      setPriceAdjustments(response.price_adjustment);
 
       setProduct(Object.values(response.product)[0]);
     });

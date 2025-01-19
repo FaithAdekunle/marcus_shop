@@ -6,6 +6,7 @@ import Dashboard from "./containers/dashboard";
 import Products from "./containers/dashboard/products";
 import useGetCurrentUser from "./hooks/useGetCurrentUser";
 import EditProduct from "./containers/dashboard/products/editProduct";
+import Admin from "./containers/dashboard/admin";
 
 const App = () => {
   useGetCurrentUser();
@@ -17,11 +18,15 @@ const App = () => {
 
       <Route element={<Dashboard />}>
         <Route path="market" element={<Products />} />
+
+        <Route element={<Admin />}>
+          <Route path="products/:productId/edit" element={<EditProduct />} />
+        </Route>
+
         <Route
           path="products/:productId"
           element={<>Product show page here...</>}
         />
-        <Route path="products/:productId/edit" element={<EditProduct />} />
         <Route path="cart" element={<>CartItems index page here...</>} />
       </Route>
 
