@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
+import BasicDetails from "./basicDetails";
 import Spinner from "../../../../components/spinner";
 import showProduct from "../../../../actions/products/showProduct";
+import Parts from "./parts";
 
 const TABS = ["Basic Details", "Parts", "Price Dependencies", "Exclusions"];
 
@@ -39,14 +41,14 @@ const EditProduct = () => {
 
   return (
     <>
-      <div class="mb-4 border-b border-gray-200">
-        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+      <div className="mb-4 border-b border-gray-200">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center">
           {TABS.map(tab => (
-            <li key={tab} class="me-2">
+            <li key={tab} className="me-2">
               <button
                 type="button"
                 onClick={() => setCurrentTab(tab)}
-                class={`inline-block p-4 rounded-t-lg ${
+                className={`inline-block p-4 rounded-t-lg ${
                   currentTab === tab
                     ? " text-gray-900 border-b-2 border-gray-900"
                     : " hover:text-gray-600 hover:border-gray-300"
@@ -59,17 +61,18 @@ const EditProduct = () => {
         </ul>
       </div>
       <div>
-        <div class="p-4 mt-10 rounded-lg bg-gray-50">
-          <p class="text-sm text-gray-500">
-            This is some placeholder content the{" "}
-            <strong class="font-medium text-gray-800">
-              Profile tab's associated content
-            </strong>
-            . Clicking another tab will toggle the visibility of this one for
-            the next. The tab JavaScript swaps classes to control the content
-            visibility and styling.
-          </p>
-        </div>
+        {currentTab === "Basic Details" && (
+          <BasicDetails product={product} setProduct={setProduct} />
+        )}
+        {currentTab === "Parts" && (
+          <Parts
+            parts={parts}
+            options={options}
+            setParts={setParts}
+            productId={productId}
+            setOptions={setOptions}
+          />
+        )}
       </div>
     </>
   );

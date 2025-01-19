@@ -8,6 +8,7 @@ module V1
       {
         include: [ :parts, :'parts.options', :'parts.options.excluders', :'parts.options.adjustees' ],
         fields: {
+          part: ::V1::PartSerializer::ATTRIBUTES,
           option: ::V1::OptionSerializer::ATTRIBUTES,
           product: ::V1::ProductSerializer::ATTRIBUTES,
           mutual_exclusion: ::V1::MutualExclusionSerializer::ATTRIBUTES,

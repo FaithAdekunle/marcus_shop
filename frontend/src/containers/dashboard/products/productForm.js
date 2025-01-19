@@ -9,6 +9,7 @@ import {
   disabledSubmitClass
 } from "../../../util/form";
 import TextArea from "../../../components/inputs/textarea";
+import Checkbox from "../../../components/inputs/checkbox";
 import TextInput from "../../../components/inputs/textInput";
 import NumberInput from "../../../components/inputs/numberInput";
 import createProduct from "../../../actions/products/createProduct";
@@ -21,6 +22,7 @@ const ProductForm = ({ product, afterSubmit }) => {
     if (product) {
       return {
         name: product.attributes.name,
+        available: product.attributes.available,
         description: product.attributes.description,
         base_price: product.attributes.base_price / 100.0
       };
@@ -32,12 +34,15 @@ const ProductForm = ({ product, afterSubmit }) => {
     values => {
       const data = {
         name: values.name,
+        available: values.available,
         description: values.description,
         base_price: (values.base_price || 0) * 100
       };
 
       if (product) {
-        return dispatch(updateProduct(product.id, data));
+        return dispatch(updateProduct(product.id, data)).then(response =>
+          afterSubmit(response)
+        );
       }
 
       return dispatch(createProduct(data)).then(response =>
@@ -52,14 +57,11 @@ const ProductForm = ({ product, afterSubmit }) => {
       onSubmit={onSubmit}
       initialValues={initialValues}
       subscription={FORM_SUBSCRIPTION}
-      render={({ submitting, handleSubmit, hasValidationErrors }) => (
+      render={({ dirty, submitting, handleSubmit, hasValidationErrors }) => (
         <form className="p-4 md:p-5" onSubmit={handleSubmit}>
           <div className="grid gap-4 mb-4 grid-cols-2">
             <div className="col-span-2">
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Name
               </label>
               <Field
@@ -73,10 +75,7 @@ const ProductForm = ({ product, afterSubmit }) => {
               />
             </div>
             <div className="col-span-2">
-              <label
-                htmlFor="price"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Price
               </label>
               <Field
@@ -89,11 +88,8 @@ const ProductForm = ({ product, afterSubmit }) => {
               />
             </div>
             <div className="col-span-2">
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Product Description
+              <label className="block mb-2 text-sm font-medium text-gray-900">
+                Description
               </label>
               <Field
                 rows="4"
@@ -101,32 +97,31 @@ const ProductForm = ({ product, afterSubmit }) => {
                 name="description"
                 component={TextArea}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-gray-600"
-              ></Field>
+              />
+            </div>
+            <div className="col-span-2">
+              <Field
+                name="available"
+                label="available"
+                component={Checkbox}
+                labelClassName="-ml-3 text-base cursor-pointer"
+                className="w-4 h-4 cursor-pointer text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2 "
+              />
             </div>
           </div>
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="submit"
-              disabled={submitting || hasValidationErrors}
-              className={`inline-flex items-center bg-gray-300 text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center${
-                hasValidationErrors || submitting ? disabledSubmitClass : ""
-              }`}
-            >
-              <svg
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                className="me-1 -ms-1 w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
+          {dirty && (
+            <div className="mt-6 flex items-center justify-end gap-x-6">
+              <button
+                type="submit"
+                disabled={submitting || hasValidationErrors}
+                className={`inline-flex items-center bg-gray-300 text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center${
+                  hasValidationErrors || submitting ? disabledSubmitClass : ""
+                }`}
               >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                ></path>
-              </svg>
-              Add new product
-            </button>
-          </div>
+                Save product
+              </button>
+            </div>
+          )}
         </form>
       )}
     />

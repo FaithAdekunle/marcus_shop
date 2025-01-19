@@ -27,7 +27,7 @@ Rails.application.routes.draw do
           member do
             resources :parts, param: :part_id, only: %i[create update destroy] do
               member do
-                resources :options, param: :option_id, only: %i[create update destroy] do
+                resources :options, param: :option_id, only: %i[] do
                   member do
                     resources :mutual_exclusions, only: %i[create destroy]
                     resources :price_adjustments, only: %i[create update destroy]

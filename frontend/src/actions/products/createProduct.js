@@ -7,7 +7,9 @@ const createProduct = values => {
       return data;
     }
 
-    function onError(error) {}
+    function onError(error) {
+      return Promise.reject(error.response);
+    }
 
     try {
       const response = await api.post("/v1/admin/products", values);

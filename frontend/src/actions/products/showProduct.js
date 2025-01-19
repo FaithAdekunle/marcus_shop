@@ -7,7 +7,9 @@ const showProduct = id => {
       return data;
     }
 
-    function onError(error) {}
+    function onError(error) {
+      return Promise.reject(error.response);
+    }
 
     try {
       const response = await api.get(`/v1/products/${id}`);

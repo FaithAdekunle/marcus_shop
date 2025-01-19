@@ -1,7 +1,7 @@
 module V1
   class PartFormatters
     def create
-      { include: [], fields: { part: ::V1::PartSerializer::ATTRIBUTES } }
+      { include: [ :options ], fields: { part: ::V1::PartSerializer::ATTRIBUTES, option: ::V1::OptionSerializer::ATTRIBUTES  } }
     end
 
     def update

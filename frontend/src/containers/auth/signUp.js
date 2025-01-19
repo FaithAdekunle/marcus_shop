@@ -52,10 +52,7 @@ const SignUp = () => {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div className="sm:col-span-full">
-                    <label
-                      htmlFor="username"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
+                    <label className="block text-sm/6 font-medium text-gray-900">
                       Full name
                     </label>
                     <div className="mt-2">
@@ -74,10 +71,7 @@ const SignUp = () => {
                   </div>
 
                   <div className="sm:col-span-full">
-                    <label
-                      htmlFor="username"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
+                    <label className="block text-sm/6 font-medium text-gray-900">
                       Email
                     </label>
                     <div className="mt-2">
@@ -96,10 +90,7 @@ const SignUp = () => {
                   </div>
 
                   <div className="sm:col-span-full">
-                    <label
-                      htmlFor="username"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
+                    <label className="block text-sm/6 font-medium text-gray-900">
                       Password
                     </label>
                     <div className="mt-2">
@@ -117,10 +108,7 @@ const SignUp = () => {
                   </div>
 
                   <div className="sm:col-span-full">
-                    <label
-                      htmlFor="username"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
+                    <label className="block text-sm/6 font-medium text-gray-900">
                       Confirm password
                     </label>
                     <div className="mt-2">
