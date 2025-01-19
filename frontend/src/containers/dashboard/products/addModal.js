@@ -56,10 +56,10 @@ const AddModal = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-width="2"
+                    strokeWidth="2"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>

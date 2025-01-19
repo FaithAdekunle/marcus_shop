@@ -1,5 +1,5 @@
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import AddModal from "./addModal";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const Products = () => {
   const { currentUser } = useCurrentUser();

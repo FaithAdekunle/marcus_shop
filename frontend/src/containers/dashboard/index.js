@@ -25,7 +25,7 @@ const Dashboard = () => {
       {currentUser ? (
         <div className="font-mono">
           <Navbar />
-          <div className="p-4">
+          <div className="ml-64 px-16 py-4">
             <Outlet />
           </div>
         </div>
