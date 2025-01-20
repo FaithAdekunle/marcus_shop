@@ -23,7 +23,12 @@ module Api
             @part.update!(part_params)
             option_ids = update_options.map { |option_params| option_params[:id] }
             Option.upsert_all(update_options, unique_by: :id)
-            Option.where(part_id: @part.id).where.not(id: option_ids).delete_all
+            delete_option_ids = Option.where(part_id: @part.id).where.not(id: option_ids).ids
+            price_adjustment_ids = PriceAdjustment.where("adjuster_id IN (?) OR adjustee_id IN (?)", delete_option_ids, delete_option_ids).ids if delete_option_ids.present?
+            mutual_exclusion_ids = MutualExclusion.where("excluder_id IN (?) OR excludee_id IN (?)", delete_option_ids, delete_option_ids).ids if delete_option_ids.present?
+            PriceAdjustment.where(id: price_adjustment_ids).delete_all if price_adjustment_ids.present?
+            MutualExclusion.where(id: mutual_exclusion_ids).delete_all if mutual_exclusion_ids.present?
+            Option.where(id: delete_option_ids).delete_all if delete_option_ids.present?
             Option.insert_all(create_options)
           end
 
