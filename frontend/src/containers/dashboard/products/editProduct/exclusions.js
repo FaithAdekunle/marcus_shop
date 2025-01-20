@@ -76,72 +76,78 @@ const Exclusions = ({
         </p>
       </div>
       <div className="mt-8">
-        {Object.values(parts || {}).map(part => (
-          <div key={`part-${part.id}`} className="mb-8">
-            <div className="mb-2">{part.attributes.name}</div>
-            <div className="p-4 border border-gray-900 rounded-lg grid gap-4 grid-cols-4">
-              {part.attributes.option_ids.map(optionId => {
-                const option = options[optionId];
-                return (
-                  <div
-                    className="col-span-2"
-                    key={`option-${part.id}-${optionId}`}
-                  >
-                    <div className="mb-2 underline">
-                      {option.attributes.name}
-                    </div>
-                    <div className="border border-gray-300 p-4 rounded-lg">
-                      {Object.values(parts || {}).map(innerPart => {
-                        if (innerPart.id === part.id) return null;
+        {Object.values(parts || {}).length > 1 && (
+          <>
+            {Object.values(parts || {}).map(part => (
+              <div key={`part-${part.id}`} className="mb-8">
+                <div className="mb-2">{part.attributes.name}</div>
+                <div className="p-4 border border-gray-900 rounded-lg grid gap-4 grid-cols-4">
+                  {part.attributes.option_ids.map(optionId => {
+                    const option = options[optionId];
+                    return (
+                      <div
+                        className="col-span-2"
+                        key={`option-${part.id}-${optionId}`}
+                      >
+                        <div className="mb-2 underline">
+                          {option.attributes.name}
+                        </div>
+                        <div className="border border-gray-300 p-4 rounded-lg">
+                          {Object.values(parts || {}).map(innerPart => {
+                            if (innerPart.id === part.id) return null;
 
-                        return (
-                          <div
-                            key={`inner-part-${innerPart.id}`}
-                            className="border border-gray-100 p-4 rounded-lg mb-4"
-                          >
-                            <label className="block mb-6 text-sm font-medium text-gray-900">
-                              {innerPart.attributes.name}
-                            </label>
-                            <div className="grid gap-4 grid-cols-3">
-                              {innerPart.attributes.option_ids.map(optionId => {
-                                const innerOption = options[optionId];
-                                return (
-                                  <div
-                                    className="col-span-1"
-                                    key={`option-${part.id}-${innerPart.id}-${optionId}`}
-                                  >
-                                    <Checkbox
-                                      onChange={() =>
-                                        onChange(
-                                          part.id,
-                                          option.id,
-                                          innerOption.id
-                                        )
-                                      }
-                                      label={innerOption.attributes.name}
-                                      checked={
-                                        !exclusionsHash[
-                                          `${option.id}-${innerOption.id}`
-                                        ]
-                                      }
-                                      name={`${option.id}-${innerOption.id}`}
-                                      labelClassName="-ml-3 text-base cursor-pointer"
-                                      className="w-4 h-4 cursor-pointer bg-gray-100 border-gray-300 rounded"
-                                    />
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+                            return (
+                              <div
+                                key={`inner-part-${innerPart.id}`}
+                                className="border border-gray-100 p-4 rounded-lg mb-4"
+                              >
+                                <label className="block mb-6 text-sm font-medium text-gray-900">
+                                  {innerPart.attributes.name}
+                                </label>
+                                <div className="grid gap-4 grid-cols-3">
+                                  {innerPart.attributes.option_ids.map(
+                                    optionId => {
+                                      const innerOption = options[optionId];
+                                      return (
+                                        <div
+                                          className="col-span-1"
+                                          key={`option-${part.id}-${innerPart.id}-${optionId}`}
+                                        >
+                                          <Checkbox
+                                            onChange={() =>
+                                              onChange(
+                                                part.id,
+                                                option.id,
+                                                innerOption.id
+                                              )
+                                            }
+                                            label={innerOption.attributes.name}
+                                            checked={
+                                              !exclusionsHash[
+                                                `${option.id}-${innerOption.id}`
+                                              ]
+                                            }
+                                            name={`${option.id}-${innerOption.id}`}
+                                            labelClassName="-ml-3 text-base cursor-pointer"
+                                            className="w-4 h-4 cursor-pointer bg-gray-100 border-gray-300 rounded"
+                                          />
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );

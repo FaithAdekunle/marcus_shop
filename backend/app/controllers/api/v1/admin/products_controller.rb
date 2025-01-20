@@ -41,7 +41,7 @@ module Api
         private
 
         def product_params
-          params.permit(:name, :base_price, :available, :description)
+          params.permit(:name, :base_price, :available, :description).tap { |p| p[:product_image] = params[:product_image] if params[:product_image].present? }
         end
       end
     end

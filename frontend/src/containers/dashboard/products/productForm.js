@@ -11,6 +11,7 @@ import {
 import TextArea from "../../../components/inputs/textarea";
 import Checkbox from "../../../components/inputs/checkbox";
 import TextInput from "../../../components/inputs/textInput";
+import FileInput from "../../../components/inputs/fileinput";
 import NumberInput from "../../../components/inputs/numberInput";
 import createProduct from "../../../actions/products/createProduct";
 import updateProduct from "../../../actions/products/updateProduct";
@@ -32,20 +33,20 @@ const ProductForm = ({ product, afterSubmit }) => {
 
   const onSubmit = useCallback(
     values => {
-      const data = {
-        name: values.name,
-        available: values.available,
-        description: values.description,
-        base_price: (values.base_price || 0) * 100
-      };
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("available", values.available);
+      formData.append("description", values.description);
+      formData.append("product_image", values.product_image);
+      formData.append("base_price", (values.base_price || 0) * 100);
 
       if (product) {
-        return dispatch(updateProduct(product.id, data)).then(response =>
+        return dispatch(updateProduct(product.id, formData)).then(response =>
           afterSubmit(response)
         );
       }
 
-      return dispatch(createProduct(data)).then(response =>
+      return dispatch(createProduct(formData)).then(response =>
         afterSubmit(response)
       );
     },
@@ -57,7 +58,13 @@ const ProductForm = ({ product, afterSubmit }) => {
       onSubmit={onSubmit}
       initialValues={initialValues}
       subscription={FORM_SUBSCRIPTION}
-      render={({ dirty, submitting, handleSubmit, hasValidationErrors }) => (
+      render={({
+        form,
+        dirty,
+        submitting,
+        handleSubmit,
+        hasValidationErrors
+      }) => (
         <form className="p-4 md:p-5" onSubmit={handleSubmit}>
           <div className="grid gap-4 mb-4 grid-cols-2">
             <div className="col-span-2">
@@ -100,12 +107,24 @@ const ProductForm = ({ product, afterSubmit }) => {
               />
             </div>
             <div className="col-span-2">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
+                Upload file
+              </label>
+              <Field
+                name="image"
+                component={FileInput}
+                accept=".png, .jpeg, .jpg"
+                onChange={files => form.change("product_image", files[0])}
+                className="block w-full text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-100 focus:outline-none h-12 p-2"
+              />
+            </div>
+            <div className="col-span-2">
               <Field
                 name="available"
                 label="available"
                 component={Checkbox}
                 labelClassName="-ml-3 text-base cursor-pointer"
-                className="w-4 h-4 cursor-pointer text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2 "
+                className="w-4 h-4 cursor-pointer text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
               />
             </div>
           </div>

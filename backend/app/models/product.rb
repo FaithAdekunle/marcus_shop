@@ -19,4 +19,17 @@ class Product < ApplicationRecord
   validates_uniqueness_of :name
 
   has_many :parts, dependent: :delete_all
+
+  has_one_attached :product_image
+
+  def image
+    return [] unless product_image.attached?
+
+    {
+      id: product_image.id,
+      type: product_image.content_type,
+      name: product_image.filename.to_s,
+      url: Rails.application.routes.url_helpers.polymorphic_url(product_image, { host: "localhost", port: 7002, protocol: "http" })
+    }
+  end
 end

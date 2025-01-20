@@ -1,64 +1,56 @@
 import PropTypes from "prop-types";
 import { useCallback } from "react";
 
-const TextArea = ({
-  id,
-  rows,
+const FileInput = ({
   name,
   value,
+  accept,
   input,
   disabled,
   onChange,
-  className,
-  placeholder
+  className
 }) => {
   const change = useCallback(
     event => {
-      if (onChange) {
-        onChange(event);
-      } else {
-        input.onChange(event.target.value);
-      }
+      onChange?.(event.target.files);
+      input?.onChange?.(event.currentTarget.value);
     },
     [onChange, input]
   );
-
   return (
-    <textarea
-      id={id}
-      rows={rows}
+    <input
+      type="file"
+      accept={accept}
       onChange={change}
       disabled={disabled}
       className={className}
-      placeholder={placeholder}
       name={input?.name || name}
       value={input?.value || value}
     />
   );
 };
 
-TextArea.defaultProps = {
+FileInput.defaultProps = {
   rows: 3,
   name: "",
   input: {},
   value: "",
-  id: undefined,
   className: "",
-  placeholder: "",
   disabled: false,
+  accept: undefined,
   onChange: undefined
 };
 
-TextArea.propTypes = {
-  id: PropTypes.string,
+FileInput.propTypes = {
   rows: PropTypes.number,
   name: PropTypes.string,
   value: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  accept: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
   input: PropTypes.objectOf(PropTypes.any)
 };
 
-export default TextArea;
+export default FileInput;
