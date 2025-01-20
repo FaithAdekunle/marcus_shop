@@ -1,5 +1,5 @@
 module V1
-  class PriceAdjustmentFormaters
+  class PriceAdjustmentFormatters
     def create
       { include: [], fields: { price_adjustment: ::V1::PriceAdjustmentSerializer::ATTRIBUTES } }
     end

@@ -85,17 +85,19 @@ const Parts = ({ parts, options, setParts, productId, setOptions }) => {
           );
         })}
       </div>
-      <div className="mt-10">
-        <div className="flex items-center gap-x-6 justify-end">
-          <button
-            type="button"
-            onClick={onAddNewPart}
-            className="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          >
-            Add new part
-          </button>
+      {newParts.length === 0 && (
+        <div className="mt-10">
+          <div className="flex items-center gap-x-6 justify-end">
+            <button
+              type="button"
+              onClick={onAddNewPart}
+              className="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              Add new part
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

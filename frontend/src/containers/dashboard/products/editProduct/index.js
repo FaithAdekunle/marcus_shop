@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Parts from "./parts";
 import Exclusions from "./exclusions";
 import BasicDetails from "./basicDetails";
+import PriceAdjustments from "./priceAdjustments";
 import Spinner from "../../../../components/spinner";
 import showProduct from "../../../../actions/products/showProduct";
 
@@ -72,6 +73,16 @@ const EditProduct = () => {
             setParts={setParts}
             productId={productId}
             setOptions={setOptions}
+          />
+        )}
+
+        {currentTab === "Price Dependencies" && (
+          <PriceAdjustments
+            parts={parts}
+            options={options}
+            productId={productId}
+            priceAdjustments={priceAdjustments}
+            setPriceAdjustments={setPriceAdjustments}
           />
         )}
         {currentTab === "Exclusions" && (

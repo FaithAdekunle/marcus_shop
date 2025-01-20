@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useMemo, useCallback } from "react";
 
-import Checkbox from "../../../../../components/inputs/checkbox";
-import deleteMutualExclusion from "../../../../../actions/mutualExclusions/deleteMutualExclusion";
-import createMutualExclusion from "../../../../../actions/mutualExclusions/createMutualExclusion";
+import Checkbox from "../../../../components/inputs/checkbox";
+import deleteMutualExclusion from "../../../../actions/mutualExclusions/deleteMutualExclusion";
+import createMutualExclusion from "../../../../actions/mutualExclusions/createMutualExclusion";
 
 const Exclusions = ({
   parts,
@@ -126,7 +126,7 @@ const Exclusions = ({
                                       }
                                       name={`${option.id}-${innerOption.id}`}
                                       labelClassName="-ml-3 text-base cursor-pointer"
-                                      className="w-4 h-4 cursor-pointer text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2 "
+                                      className="w-4 h-4 cursor-pointer bg-gray-100 border-gray-300 rounded"
                                     />
                                   </div>
                                 );

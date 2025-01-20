@@ -1,5 +1,6 @@
 export const FORM_SUBSCRIPTION = {
   dirty: true,
+  values: true,
   errors: true,
   invalid: true,
   submitting: true,

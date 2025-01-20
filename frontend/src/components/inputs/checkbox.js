@@ -40,16 +40,16 @@ const Checkbox = ({
         {...input}
         type="checkbox"
         disabled={disabled}
-        className={className}
         onChange={handleChange}
         checked={input?.value || checked}
+        className={`${className} accent-gray-300`}
       />
 
       <label
         aria-label="label"
         onClick={handleLabelClick}
-        htmlFor={labelFor || input?.name}
         className={labelClassName || ""}
+        htmlFor={labelFor || input?.name}
       >
         &nbsp; {label}
       </label>

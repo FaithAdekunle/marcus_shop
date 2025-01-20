@@ -4,7 +4,7 @@ module Api
       class PriceAdjustmentsController < BaseController
         def create
           price_adjustment = PriceAdjustment.create!(price_adjustment_params)
-          formatter = ::V1::PriceAdjustmentFormaters.new.create
+          formatter = ::V1::PriceAdjustmentFormatters.new.create
 
           render json: ::V1::PriceAdjustmentSerializer.new(price_adjustment, formatter).serializable_hash
         end
@@ -19,7 +19,7 @@ module Api
         def update
           price_adjustment = PriceAdjustment.find(params[:id])
           price_adjustment.update!(price_adjustment_params)
-          formatter = ::V1::PriceAdjustmentFormaters.new.update
+          formatter = ::V1::PriceAdjustmentFormatters.new.update
 
           render json: ::V1::PriceAdjustmentSerializer.new(price_adjustment, formatter).serializable_hash
         end
