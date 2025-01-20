@@ -17,11 +17,13 @@ const SelectInput = ({
 
   const handleChange = useCallback(
     option => {
-      onChange?.(option);
-      input?.onChange?.(option);
-      toggleShowOptions();
+      if ((input?.value?.value || value?.vale) !== option.value) {
+        onChange?.(option);
+        input?.onChange?.(option);
+        toggleShowOptions();
+      }
     },
-    [input, onChange, toggleShowOptions]
+    [input, value, onChange, toggleShowOptions]
   );
 
   return (
