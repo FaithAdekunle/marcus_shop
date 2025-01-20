@@ -83,10 +83,6 @@ const PartForm = ({ part, options, onDelete, productId, afterSubmit }) => {
         render={({ dirty, submitting, handleSubmit, hasValidationErrors }) => (
           <form className="p-4 md:p-5" onSubmit={handleSubmit}>
             <div className="grid gap-4 mb-4 grid-cols-4">
-              <SelectInput
-                placeholder="select an option"
-                options={[{ label: "Part 1", value: 1 }]}
-              />
               <div className="col-span-4">
                 <label className="block mb-2 text-sm font-medium text-gray-900">
                   Part name
