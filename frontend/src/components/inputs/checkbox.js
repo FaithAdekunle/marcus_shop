@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // Handles checkboxes used as Field component or normal checkboxes
 const Checkbox = ({
   id,
+  name,
   input,
   label,
   checked,
@@ -13,7 +14,7 @@ const Checkbox = ({
   labelClassName
 }) => {
   const handleChange = event => {
-    return onChange ? onChange(event) : input.onChange(event.target.checked);
+    return onChange ? onChange(event) : input?.onChange(event.target.checked);
   };
 
   const handleLabelClick = () => {
@@ -21,10 +22,13 @@ const Checkbox = ({
 
     handleChange({
       preventDefault: () => {},
-      target: { checked: !(input.checked || input.value), name: input.name },
+      target: {
+        checked: !(input?.checked || input?.value || checked),
+        name: input?.name || name
+      },
       currentTarget: {
-        checked: !(input.checked || input.value),
-        name: input.name
+        checked: !(input?.checked || input?.value || checked),
+        name: input?.name
       }
     });
   };
@@ -38,13 +42,13 @@ const Checkbox = ({
         disabled={disabled}
         className={className}
         onChange={handleChange}
-        checked={input.value || checked}
+        checked={input?.value || checked}
       />
 
       <label
         aria-label="label"
         onClick={handleLabelClick}
-        htmlFor={labelFor || input.name}
+        htmlFor={labelFor || input?.name}
         className={labelClassName || ""}
       >
         &nbsp; {label}
@@ -74,6 +78,7 @@ Checkbox.propTypes = {
   labelFor: PropTypes.string,
   className: PropTypes.string,
   labelClassName: PropTypes.string,
+  name: PropTypes.string.isRequired,
   input: PropTypes.objectOf(PropTypes.any)
 };
 

@@ -21,8 +21,8 @@ const Parts = ({ parts, options, setParts, productId, setOptions }) => {
 
   const afterCreatePart = useCallback(
     (response, index) => {
-      setParts(value => ({ ...value, ...response.part }));
-      setOptions(value => ({ ...value, ...response.option }));
+      setParts(value => ({ ...(value || {}), ...response.part }));
+      setOptions(value => ({ ...(value || {}), ...response.option }));
       onRemoveNewPart(index);
     },
     [setParts, setOptions, onRemoveNewPart]
@@ -100,10 +100,15 @@ const Parts = ({ parts, options, setParts, productId, setOptions }) => {
   );
 };
 
+Parts.defaultProps = {
+  parts: undefined,
+  options: undefined
+};
+
 Parts.propTypes = {
-  parts: PropTypes.object.isRequired,
+  parts: PropTypes.object,
+  options: PropTypes.object,
   setParts: PropTypes.func.isRequired,
-  options: PropTypes.object.isRequired,
   setOptions: PropTypes.func.isRequired,
   productId: PropTypes.number.isRequired
 };

@@ -2,10 +2,11 @@ import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
+import Parts from "./parts";
+import Exclusions from "./exclusions";
 import BasicDetails from "./basicDetails";
 import Spinner from "../../../../components/spinner";
 import showProduct from "../../../../actions/products/showProduct";
-import Parts from "./parts";
 
 const TABS = ["Basic Details", "Parts", "Price Dependencies", "Exclusions"];
 
@@ -71,6 +72,15 @@ const EditProduct = () => {
             setParts={setParts}
             productId={productId}
             setOptions={setOptions}
+          />
+        )}
+        {currentTab === "Exclusions" && (
+          <Exclusions
+            parts={parts}
+            options={options}
+            productId={productId}
+            mutualExclusions={mutualExclusions}
+            setMutualExclusions={setMutualExclusions}
           />
         )}
       </div>
