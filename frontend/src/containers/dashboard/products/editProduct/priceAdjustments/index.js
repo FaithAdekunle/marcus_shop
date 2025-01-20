@@ -81,17 +81,25 @@ const PriceAdjustments = ({
       </div>
       <div className="mt-2">
         {Object.values(priceAdjustments || {}).map((priceAdjustment, index) => {
-          return (
-            <PriceAdjustmentForm
-              parts={parts}
-              options={options}
-              productId={productId}
-              key={`priceAdjustment-${index}`}
-              priceAdjustment={priceAdjustment}
-              onDelete={onDeletePriceAdjustment}
-              afterSubmit={afterUpdatePriceAdjustment}
-            />
-          );
+          const adjuster = options[priceAdjustment.attributes.adjuster_id];
+          const adjustee = options[priceAdjustment.attributes.adjustee_id];
+          if (
+            parts[adjuster?.attributes?.part_id] &&
+            parts[adjustee?.attributes?.part_id]
+          ) {
+            return (
+              <PriceAdjustmentForm
+                parts={parts}
+                options={options}
+                productId={productId}
+                key={`priceAdjustment-${index}`}
+                priceAdjustment={priceAdjustment}
+                onDelete={onDeletePriceAdjustment}
+                afterSubmit={afterUpdatePriceAdjustment}
+              />
+            );
+          }
+          return null;
         })}
         {newPriceAdjustments.map((priceAdjustment, index) => {
           return (
