@@ -20,8 +20,8 @@ const SelectInput = ({
       if ((input?.value?.value || value?.vale) !== option.value) {
         onChange?.(option);
         input?.onChange?.(option);
-        toggleShowOptions();
       }
+      toggleShowOptions();
     },
     [input, value, onChange, toggleShowOptions]
   );
